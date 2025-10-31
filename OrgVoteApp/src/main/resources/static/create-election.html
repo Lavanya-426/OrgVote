@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create Election | OrgVoteApp</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(to bottom right, #e8dcc2, #d5c1a2);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #4b3a2f;
+      }
+
+      .container {
+        background: #fff8f0;
+        border: 1px solid #d8c8a6;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(90, 70, 50, 0.2);
+        padding: 40px 50px;
+        width: 500px;
+        text-align: center;
+      }
+
+      h2 {
+        color: #3d2b1f;
+        margin-bottom: 10px;
+      }
+
+      p {
+        color: #6b5644;
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        text-align: left;
+        margin-top: 15px;
+        font-size: 0.9rem;
+        color: #5a4634;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #c9b79c;
+        border-radius: 6px;
+        background: #fffdf9;
+        font-size: 1rem;
+        color: #4b3a2f;
+      }
+
+      input[type="file"] {
+        border: none;
+        background: none;
+        padding: 6px;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #a67b5b;
+        box-shadow: 0 0 4px rgba(166, 123, 91, 0.4);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #a67b5b;
+        color: #fff8f0;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 25px;
+        transition: background 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #8b6548;
+      }
+
+      .links {
+        margin-top: 15px;
+      }
+
+      .links a {
+        color: #6b5644;
+        text-decoration: none;
+        font-size: 0.9rem;
+        margin: 0 5px;
+      }
+
+      .links a:hover {
+        text-decoration: underline;
+      }
+
+      small {
+        color: #856e5c;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Create Election</h2>
+      <p>Enter election details and upload candidate & voter lists</p>
+
+      <form id="createElectionForm">
+        <label>Organization Name</label>
+        <input type="text" placeholder="e.g. ABC College" required />
+
+        <label>Date of Election</label>
+        <input type="date" required />
+
+        <label>Duration (in hours)</label>
+        <input type="number" placeholder="e.g. 2" min="1" required />
+
+        <label>Candidate List (CSV)</label>
+        <input type="file" id="candidateList" accept=".csv" required />
+        <small>Format: Candidate ID, Candidate Name, Party Name, Symbol</small>
+
+        <label>Voter List (CSV)</label>
+        <input type="file" id="voterList" accept=".csv" required />
+        <small>Format: Voter ID, Voter Name, Voter Email</small>
+
+        <button type="button" class="btn" onclick="mockCreateElection()">
+          Create Election
+        </button>
+      </form>
+
+      <div class="links">
+        <a href="admin-dashboard.html">Back to Dashboard</a>
+      </div>
+    </div>
+
+    <script>
+      function mockCreateElection() {
+        const org = document.querySelector('input[type="text"]').value;
+        const date = document.querySelector('input[type="date"]').value;
+        const duration = document.querySelector('input[type="number"]').value;
+        const candidates = document.getElementById("candidateList").files[0];
+        const voters = document.getElementById("voterList").files[0];
+
+        if (org && date && duration && candidates && voters) {
+          alert("Election created successfully!");
+          window.location.href = "admin-dashboard.html";
+        } else {
+          alert("Please fill in all fields and upload both CSV files.");
+        }
+      }
+    </script>
+  </body>
+</html>

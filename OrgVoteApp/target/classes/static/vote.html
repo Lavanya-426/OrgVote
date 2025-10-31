@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OrgVoteApp - Vote</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-blue-50 flex items-center justify-center p-6">
+  <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-2xl">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-xl font-semibold text-blue-700">Cast your vote</h1>
+      <div><span id="usr"></span> <button onclick="logout()" class="text-sm text-blue-600 ml-3">Logout</button></div>
+    </div>
+    <div id="status" class="mb-3 text-sm text-gray-600"></div>
+    <ul id="cands" class="space-y-3"></ul>
+    <div id="msg" class="mt-4"></div>
+  </div>
+
+<script>
+const username = localStorage.getItem('username') || prompt('Enter username');
+document.getElementById('usr').innerText = username;
+function logout(){ localStorage.clear(); location.href='/login.html'; }
+
+async function load(){
+  const r = await fetch('/user/candidates');
+  const j = await r.json();
+  if(j.msg){ document.getElementById('status').innerText = j.msg; return; }
+  const ul = document.getElementById('cands'); ul.innerHTML='';
+  j.forEach(c => {
+    const li = document.createElement('li');
+    li.className = 'p-3 border rounded flex justify-between items-center';
+    li.innerHTML = `<div><strong>${c.name}</strong></div><div><button onclick="vote(${c.id})" class="bg-blue-600 text-white px-3 py-1 rounded">Vote</button></div>`;
+    ul.appendChild(li);
+  });
+}
+
+async function vote(candidateId){
+  const r = await fetch('/user/vote', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username, candidateId})});
+  const j = await r.json();
+  if(j.ok || j.voted || j.success){ document.getElementById('cands').innerHTML = '<div class="p-4 text-green-600 font-semibold">Thank you — your vote recorded</div>'; }
+  else document.getElementById('msg').innerText = j.msg || j.message || 'Error';
+}
+
+load();
+</script>
+</body>
+</html>

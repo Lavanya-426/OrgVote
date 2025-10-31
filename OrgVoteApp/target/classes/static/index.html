@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OrgVoteApp | Home</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(to bottom right, #e8dcc2, #d5c1a2);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #4b3a2f;
+      }
+
+      .container {
+        background: #fff8f0;
+        border: 1px solid #d8c8a6;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(90, 70, 50, 0.2);
+        padding: 40px 60px;
+        text-align: center;
+        width: 400px;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+        color: #3d2b1f;
+      }
+
+      p {
+        font-size: 1rem;
+        color: #6b5644;
+        margin-bottom: 25px;
+      }
+
+      .btn {
+        display: inline-block;
+        width: 45%;
+        margin: 5px;
+        padding: 12px 0;
+        background-color: #a67b5b;
+        color: #fff8f0;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.1s;
+      }
+
+      .btn:hover {
+        background-color: #8b6548;
+        transform: scale(1.03);
+      }
+
+      .section {
+        margin-top: 25px;
+      }
+
+      .title {
+        font-weight: 600;
+        margin-bottom: 12px;
+        font-size: 150px;
+        color: #4b3a2f;
+        font-size: 1.1rem;
+      }
+
+      .voter-btn {
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>OrgVote</h1>
+      <p>Secure & Simple Election Management System</p>
+
+      <div class="section">
+        <div class="title">Admin</div>
+        <div>
+          <button class="btn" onclick="window.location.href='admin-login.html'">
+            Login
+          </button>
+          <button
+            class="btn"
+            onclick="window.location.href='admin-register.html'"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="title">Voter</div>
+        <button
+          class="btn voter-btn"
+          onclick="window.location.href='voter-login.html'"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

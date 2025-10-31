@@ -1,0 +1,14 @@
+com\orgvoteapp\controller\AuthController$LoginResponse.class
+com\orgvoteapp\controller\UserController$VoteDto.class
+com\orgvoteapp\controller\AdminController.class
+com\orgvoteapp\model\Candidate.class
+com\orgvoteapp\repository\UserRepository.class
+com\orgvoteapp\repository\ElectionRepository.class
+com\orgvoteapp\controller\UserController$SimpleResp.class
+com\orgvoteapp\repository\CandidateRepository.class
+com\orgvoteapp\controller\AuthController$LoginRequest.class
+com\orgvoteapp\controller\AuthController.class
+com\orgvoteapp\model\User.class
+com\orgvoteapp\model\Election.class
+com\orgvoteapp\controller\UserController.class
+com\orgvoteapp\OrgVoteAppApplication.class

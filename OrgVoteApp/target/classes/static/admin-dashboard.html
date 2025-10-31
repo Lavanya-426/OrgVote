@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard | OrgVoteApp</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(to bottom right, #e8dcc2, #d5c1a2);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #4b3a2f;
+      }
+
+      .container {
+        background: #fff8f0;
+        border: 1px solid #d8c8a6;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(90, 70, 50, 0.2);
+        padding: 40px 60px;
+        text-align: center;
+        width: 400px;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: #3d2b1f;
+      }
+
+      p {
+        font-size: 1rem;
+        color: #6b5644;
+        margin-bottom: 25px;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 12px;
+        background-color: #a67b5b;
+        color: #fff8f0;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #8b6548;
+      }
+
+      .logout {
+        background-color: #b97a57;
+      }
+
+      .logout:hover {
+        background-color: #9c6245;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome, Admin!</h1>
+      <p>Manage elections with ease.</p>
+
+      <button class="btn" onclick="window.location.href='create-election.html'">
+        Create New Election
+      </button>
+
+      <button class="btn" onclick="window.location.href='past-results.html'">
+        View Past Election Results
+      </button>
+
+      <button class="btn logout" onclick="window.location.href='index.html'">
+        Logout
+      </button>
+    </div>
+  </body>
+</html>

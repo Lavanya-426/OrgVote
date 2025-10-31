@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OrgVoteApp - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-50 to-white p-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-blue-700">Admin Panel</h1>
+      <div>
+        <span id="adminName" class="text-sm text-gray-600"></span>
+        <button onclick="logout()" class="ml-4 text-sm text-blue-600">Logout</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-4 rounded shadow">
+        <h2 class="font-semibold mb-2">Upload Users (CSV or XLSX)</h2>
+        <input type="file" id="usersFile" class="mb-3"/>
+        <button onclick="uploadUsers()" class="bg-blue-600 text-white px-4 py-2 rounded">Upload Users</button>
+      </div>
+
+      <div class="bg-white p-4 rounded shadow">
+        <h2 class="font-semibold mb-2">Upload Candidates (CSV or XLSX)</h2>
+        <input type="file" id="candsFile" class="mb-3"/>
+        <button onclick="uploadCands()" class="bg-blue-600 text-white px-4 py-2 rounded">Upload Candidates</button>
+      </div>
+
+      <div class="bg-white p-4 rounded shadow md:col-span-2">
+        <h2 class="font-semibold mb-2">Create Election</h2>
+        <input id="title" class="w-full border rounded p-2 mb-2" placeholder="Title"/>
+        <textarea id="desc" class="w-full border rounded p-2 mb-2" placeholder="Description"></textarea>
+        <div class="space-x-2">
+          <button onclick="createElection()" class="bg-green-600 text-white px-4 py-2 rounded">Create</button>
+          <button onclick="start()" class="bg-blue-600 text-white px-4 py-2 rounded">Start</button>
+          <button onclick="end()" class="bg-red-600 text-white px-4 py-2 rounded">End</button>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded shadow md:col-span-2">
+        <h2 class="font-semibold mb-2">Results</h2>
+        <button onclick="getResults()" class="bg-gray-100 px-3 py-2 rounded mb-3">Refresh</button>
+        <ul id="results" class="space-y-2"></ul>
+      </div>
+    </div>
+  </div>
+
+<script>
+document.getElementById('adminName').innerText = localStorage.getItem('username') || '';
+function logout(){ localStorage.clear(); location.href='/login.html'; }
+
+async function uploadUsers(){
+  const f = document.getElementById('usersFile').files[0]; if(!f){alert('Choose file');return;}
+  const fd = new FormData(); fd.append('file', f);
+  const r = await fetch('/admin/upload-users', {method:'POST', body: fd});
+  alert(await r.text());
+}
+async function uploadCands(){
+  const f = document.getElementById('candsFile').files[0]; if(!f){alert('Choose file');return;}
+  const fd = new FormData(); fd.append('file', f);
+  const r = await fetch('/admin/upload-candidates', {method:'POST', body: fd});
+  alert(await r.text());
+}
+async function createElection(){
+  const t = document.getElementById('title').value;
+  const d = document.getElementById('desc').value;
+  if(!t){alert('Title required');return;}
+  await fetch('/admin/create-election', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({title:t,description:d})});
+  alert('created');
+}
+async function start(){ await fetch('/admin/start', {method:'POST'}); alert('started'); }
+async function end(){ await fetch('/admin/end', {method:'POST'}); alert('ended'); }
+async function getResults(){
+  const r = await fetch('/admin/results'); const arr = await r.json();
+  const ul = document.getElementById('results'); ul.innerHTML='';
+  arr.forEach(c=>{ const li = document.createElement('li'); li.className='p-2 border rounded'; li.innerText = c.name + ' — ' + c.votes + ' votes'; ul.appendChild(li); });
+}
+</script>
+</body>
+</html>
