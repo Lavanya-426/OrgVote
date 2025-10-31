@@ -1,3 +1,4 @@
-admin,adminpass,ADMIN
-alice,alicepass,USER
-bob,bobpass,USER
+voterId,name,email
+V001,Alice Brown,alice@example.com
+V002,Charlie Davis,charlie@example.com
+V003,Diana Evans,diana@example.com

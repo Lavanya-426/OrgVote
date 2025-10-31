@@ -132,7 +132,7 @@
         <input type="file" id="voterList" accept=".csv" required />
         <small>Format: Voter ID, Voter Name, Voter Email</small>
 
-        <button type="button" class="btn" onclick="mockCreateElection()">
+        <button type="button" class="btn" onclick="createElection()">
           Create Election
         </button>
       </form>
@@ -143,18 +143,40 @@
     </div>
 
     <script>
-      function mockCreateElection() {
-        const org = document.querySelector('input[type="text"]').value;
-        const date = document.querySelector('input[type="date"]').value;
-        const duration = document.querySelector('input[type="number"]').value;
-        const candidates = document.getElementById("candidateList").files[0];
-        const voters = document.getElementById("voterList").files[0];
+      async function createElection() {
+        const formData = new FormData();
+        formData.append("orgName", document.getElementById("orgName").value);
+        formData.append(
+          "electionDate",
+          document.getElementById("electionDate").value
+        );
+        formData.append("duration", document.getElementById("duration").value);
+        formData.append(
+          "candidatesFile",
+          document.getElementById("candidatesFile").files[0]
+        );
+        formData.append(
+          "votersFile",
+          document.getElementById("votersFile").files[0]
+        );
 
-        if (org && date && duration && candidates && voters) {
-          alert("Election created successfully!");
-          window.location.href = "admin-dashboard.html";
-        } else {
-          alert("Please fill in all fields and upload both CSV files.");
+        try {
+          const response = await fetch("/api/admin/elections/create", {
+            method: "POST",
+            body: formData,
+            credentials: "include",
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            alert("Election created successfully!");
+            window.location.href = "/admin-dashboard.html";
+          } else {
+            alert(result.message);
+          }
+        } catch (error) {
+          alert("Failed to create election: " + error.message);
         }
       }
     </script>

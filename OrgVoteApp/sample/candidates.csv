@@ -1,3 +1,4 @@
-Alice Johnson
-Bob Kumar
-Charlie Singh
+candidateId,name,party,symbol
+C001,John Doe,Democratic Party,Eagle
+C002,Jane Smith,Republican Party,Elephant
+C003,Bob Johnson,Independent,Star
